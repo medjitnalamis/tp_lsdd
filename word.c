@@ -1,9 +1,14 @@
 #include "word.h"
+#inlude <stdlib.h>
+#include <stdio.h>
+typedef int boolean;
+#define False 0
+#define true 1 
 // creates a new cell and stores its address in p
 void Allocate(pwd *p) {
     *p = (struct wordnode *) malloc(sizeof(struct wordnode ));
-      (*p)->word = NULL; // because char* is a pointer and if we dont do it , it will conatains garbage 
-    (*p)-> next = NULL ; // now we know p points to nothing — safe
+      (*p)->word = NULL; // because char* is a pointer, and if we don't do it, it will contain garbage 
+    (*p)-> next = NULL; // now we know p points to nothing — safe
 } 
  // frees the node 
 void Free_node (pwd p) {
@@ -52,4 +57,43 @@ void freeWordList(pwd head) {
         p=
     }
 }
-///gdjgjhgezdgzhdgdau   sajdkzkfgueygckdc;,zdhciol
+
+pwd insert(pwd *head , string new )
+{
+    booolean found = 1 ; 
+    pwd p = *head  ; 
+    char *d = new ;
+    pwd n ; 
+    //create the new node 
+    n = Allocate(new);
+     // case the list is empty 
+     if (*head == NULL )
+     {
+         Ass_word(*head,new);
+        Ass_adr(*head,NULL);
+        return *head;
+     }
+    
+     else
+     { 
+     //we should check that the new word doesn't exist + stay in the sorted list 
+     if ( strcmp(content(p),new) == 1)
+     return *head ;
+     else 
+     { 
+     while ((p != NULL) && !found)
+     {
+        if ( (content(next(p)) > *d) && ( p <= *d ) )// we find the right position 
+        {
+        found == 0 ; 
+        
+        Ass_adr(n,next(p));
+        Ass_adr(p,n);
+        }
+        else // we didn't find the perfect position 
+        p = next(p);
+     }
+    }
+    return head ; 
+}
+   
