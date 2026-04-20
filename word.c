@@ -52,4 +52,4 @@ void freeWordList(pwd head) {
         p=
     }
 }
-
+///gdjgjhgezdgzhdgdau   sajdkzkfgueygckdc;,zdhciol
