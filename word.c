@@ -54,7 +54,7 @@ void freeWordList(pwd head) {
         Free_node(p);
         temp=Next(p); 
         Free_node(p);
-        p=
+        p=temp ;
     }
 }
 
