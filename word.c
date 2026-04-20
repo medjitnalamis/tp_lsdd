@@ -1,9 +1,10 @@
 #include "word.h"
-#inlude <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 typedef int boolean;
 #define False 0
-#define true 1 
+#define true 1
 // creates a new cell and stores its address in p
 void Allocate(pwd *p) {
     *p = (struct wordnode *) malloc(sizeof(struct wordnode ));
@@ -60,40 +61,59 @@ void freeWordList(pwd head) {
 
 pwd insert(pwd *head , string new )
 {
-    booolean found = 1 ; 
+    boolean found = 0 ; 
     pwd p = *head  ; 
     char *d = new ;
     pwd n ; 
+    while( p != NULL)
+    {
+        //we should check that the new word doesn't exist + stay in the sorted list 
+     if ( strcmp(content(p),new) == 0 )
+     return *head ;
+     else p = Next(p);
+    }
+    p = *head ; 
     //create the new node 
-    n = Allocate(new);
+     Allocate(&n);
      // case the list is empty 
      if (*head == NULL )
      {
-         Ass_word(*head,new);
-        Ass_adr(*head,NULL);
+         Ass_word(n,new);
+        *head=n;
         return *head;
-     }
+     } 
+     // insert befor the head 
+      if ( strcmp(content(*head),new) > 0)
+        {
+            found = 0 ;
+            Ass_word(n,new); 
+            Ass_adr(n,*head);
+            *head = n ; 
+            return *head ; 
+        }
     
      else
-     { 
-     //we should check that the new word doesn't exist + stay in the sorted list 
-     if ( strcmp(content(p),new) == 1)
-     return *head ;
-     else 
-     { 
-     while ((p != NULL) && !found)
      {
-        if ( (content(next(p)) > *d) && ( p <= *d ) )// we find the right position 
-        {
-        found == 0 ; 
+     while ((p != NULL) && !found)
+     { 
         
-        Ass_adr(n,next(p));
+        if ( Next(p) != NULL  && (strcmp(content(Next(p)),d) > 0 )  )// we find the right position 
+        {
+        found = 1 ; 
+        Ass_adr(n,Next(p));
         Ass_adr(p,n);
         }
         else // we didn't find the perfect position 
-        p = next(p);
+        p = Next(p);
      }
+    
+    if ( (strcmp(content(p),d)<0) ) // we insert in the  end  of the list 
+    {
+        Ass_word(n,new);
+        Ass_adr(p,n);
+        Ass_adr(n,NULL); 
     }
-    return head ; 
+    return *head ; 
+}
 }
    
