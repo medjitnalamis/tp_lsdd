@@ -12,7 +12,7 @@ void Allocate(pwd *p) {
     (*p)-> next = NULL; // now we know p points to nothing — safe
 } 
  // frees the node 
-void Free_node (pwd p) {
+void Free_node (pwd p) { 
     free(p->word); // free the word sting 
     free(p);// frees the node
 }
@@ -43,7 +43,7 @@ pwd p ;
 p = head ;
      while ( p != NULL)
 {
-    printf("%s -->  " , content(p));
+    printf(" --> %s " , content(p));
     p = Next(p);
 }
 }
@@ -52,7 +52,7 @@ void freeWordList(pwd head) {
     pwd p = head;
     pwd temp;
     while (p != NULL) {
-        Free_node(p);
+        
         temp=Next(p); 
         Free_node(p);
         p=temp ;
@@ -100,20 +100,23 @@ pwd insert(pwd *head , string new )
         if ( Next(p) != NULL  && (strcmp(content(Next(p)),d) > 0 )  )// we find the right position 
         {
         found = 1 ; 
+        Ass_word(n,new);
         Ass_adr(n,Next(p));
         Ass_adr(p,n);
         }
         else // we didn't find the perfect position 
         p = Next(p);
      }
-    
-    if ( (strcmp(content(p),d)<0) ) // we insert in the  end  of the list 
+     
+     }
+     
+    if ( !found && (strcmp(content(p),d)<0) ) // we insert in the  end  of the list 
     {
         Ass_word(n,new);
         Ass_adr(p,n);
         Ass_adr(n,NULL); 
     }
-    return *head ; 
-}
+    
+return *head ; 
 }
    
